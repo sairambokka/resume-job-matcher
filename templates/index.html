@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head><title>Resume Analyzer</title></head>
+<body>
+  <h1>Upload Your Resume</h1>
+  <form method="POST" enctype="multipart/form-data">
+    <input type="file" name="resume" accept=".pdf" required>
+    <input type="submit" value="Analyze">
+  </form>
+
+  {% if keywords|length > 0 %}
+    <h3>Extracted Keywords:</h3>
+    <ul>
+      {% for k in keywords %}
+        <li>{{ k }}</li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+
+  {% if job_results %}
+    <h3>Matching Jobs:</h3>
+    <ul>
+      {% for job in job_results %}
+        <li>
+          <strong>{{ job.title }}</strong> at {{ job.company.name }} <br>
+          <a href="{{ job.url }}" target="_blank">Apply Here</a><br><br>
+        </li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+</body>
+</html>
