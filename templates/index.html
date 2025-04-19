@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-<head><title>Resume Analyzer</title></head>
+<head><title>AI Resume Analyzer</title></head>
 <body>
   <h1>Upload Your Resume</h1>
   <form method="POST" enctype="multipart/form-data">
@@ -10,23 +10,35 @@
 
   {% if keywords|length > 0 %}
     <h3>Extracted Keywords:</h3>
+    <ul>{% for k in keywords %}<li>{{ k }}</li>{% endfor %}</ul>
+  {% endif %}
+
+  {% if refined|length > 0 %}
+    <h3>GPT‑Filtered Keywords:</h3>
+    <ul>{% for k in refined %}<li>{{ k }}</li>{% endfor %}</ul>
+  {% endif %}
+
+  {% if feedback %}
+    <h3>Resume Feedback:</h3>
+    <pre>{{ feedback }}</pre>
+  {% endif %}
+
+  {% if jobs|length > 0 %}
+    <h3>Matching Jobs:</h3>
     <ul>
-      {% for k in keywords %}
-        <li>{{ k }}</li>
+      {% for job in jobs %}
+        <li>
+          <strong>{{ job.title }}</strong> at {{ job.company.name }}<br>
+          <a href="{{ job.url }}" target="_blank">Apply Here</a> |
+          <a href="{{ url_for('cover_letter', job_id=job.id) }}">Create Cover Letter</a>
+        </li>
       {% endfor %}
     </ul>
   {% endif %}
 
-  {% if job_results %}
-    <h3>Matching Jobs:</h3>
-    <ul>
-      {% for job in job_results %}
-        <li>
-          <strong>{{ job.title }}</strong> at {{ job.company.name }} <br>
-          <a href="{{ job.url }}" target="_blank">Apply Here</a><br><br>
-        </li>
-      {% endfor %}
-    </ul>
+  {% if gap_feedback %}
+    <h3>Skill‑Gap Analysis:</h3>
+    <pre>{{ gap_feedback }}</pre>
   {% endif %}
 </body>
 </html>
