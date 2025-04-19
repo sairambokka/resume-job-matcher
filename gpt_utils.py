@@ -64,8 +64,8 @@ def generate_gap_feedback(resume_kw, all_job_kw):
             {"role": "system", "content": "You are a career coach."},
             {"role": "user", "content": prompt}
         ],
-        temperature=0.2,
-        max_tokens=200
+        temperature=0.7,
+        max_tokens=400
     )
     return resp.choices[0].message.content
 
