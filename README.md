@@ -145,6 +145,18 @@ RAPIDAPI_KEY=your_rapidapi_key
 - [ ] Automated tests & CI pipeline
 - [ ] Docker containerization
 
+## 🔮 Future Work
+
+This application can be improved in a lot of different ways:
+
+1. **LinkedIn API Integration**: This app currently uses a third-party API for fetching LinkedIn Jobs. This can be replaced by the official LinkedIn API when available.
+
+2. **Match Percentage**: Each job could have a percentage-based match besides the job link to show how well matched each job is with the Resume. Due to API constraints, this feature is not yet implemented.
+
+3. **Enhanced Skill Gap Analysis**: The skill gap analysis can be more in-depth based on each job description, providing more personalized learning recommendations.
+
+4. **UI Improvements**: Enhance the user interface for better user experience and accessibility.
+
 ## ❓ Troubleshooting
 
 **Issue**: PDF parsing fails
