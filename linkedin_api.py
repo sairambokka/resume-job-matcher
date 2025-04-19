@@ -19,9 +19,9 @@ def get_linkedin_jobs(keywords):
         "sort": "mostRelevant"
     }
     response = requests.get(url, headers=headers, params=params)
-    if response.status_code == 200:
-        return response.json().get("data", [])
-    return []
+    response.raise_for_status()
+    data = response.json().get("data")    # could be None
+    return data or []
     
 def get_job_details(job_id):
     """Fetch full job details including description, responsibilities, etc."""

@@ -1,44 +1,211 @@
 <!DOCTYPE html>
-<html>
-<head><title>AI Resume Analyzer</title></head>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Resume Analyzer</title>
+  <style>
+    :root {
+      --primary: #4f46e5;
+      --primary-dark: #4338ca;
+      --light-bg: #f9fafb;
+      --border: #e5e7eb;
+    }
+    
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      line-height: 1.5;
+      color: #1f2937;
+      background-color: var(--light-bg);
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    
+    h1 {
+      color: var(--primary-dark);
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    
+    h3 {
+      margin-top: 30px;
+      padding-bottom: 8px;
+      border-bottom: 2px solid var(--primary);
+    }
+    
+    .upload-container {
+      background-color: white;
+      padding: 30px;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      margin-bottom: 30px;
+    }
+    
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+    
+    @media (min-width: 640px) {
+      form {
+        flex-direction: row;
+        align-items: center;
+      }
+    }
+    
+    input[type="file"] {
+      flex: 1;
+      padding: 10px;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      background-color: white;
+    }
+    
+    input[type="submit"] {
+      background-color: var(--primary);
+      color: white;
+      padding: 12px 20px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: background-color 0.2s;
+    }
+    
+    input[type="submit"]:hover {
+      background-color: var(--primary-dark);
+    }
+    
+    .results-container {
+      background-color: white;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      margin-top: 20px;
+    }
+    
+    ul {
+      padding-left: 20px;
+    }
+    
+    li {
+      margin-bottom: 10px;
+    }
+    
+    .keyword-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      list-style: none;
+      padding: 0;
+    }
+    
+    .keyword-list li {
+      background-color: #e0e7ff;
+      color: var(--primary-dark);
+      padding: 4px 12px;
+      border-radius: 16px;
+      font-size: 14px;
+    }
+    
+    .jobs-list {
+      list-style: none;
+      padding: 0;
+    }
+    
+    .job-item {
+      border: 1px solid var(--border);
+      padding: 15px;
+      border-radius: 6px;
+      margin-bottom: 15px;
+    }
+    
+    .job-title {
+      color: var(--primary-dark);
+      margin-bottom: 5px;
+    }
+    
+    .job-company {
+      font-size: 14px;
+      margin-bottom: 10px;
+      color: #4b5563;
+    }
+    
+    .job-links {
+      display: flex;
+      gap: 15px;
+    }
+    
+    .job-links a {
+      color: var(--primary);
+      text-decoration: none;
+      font-weight: 500;
+    }
+    
+    .job-links a:hover {
+      text-decoration: underline;
+    }
+    
+    pre {
+      background-color: #f3f4f6;
+      padding: 15px;
+      border-radius: 6px;
+      white-space: pre-wrap;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+  </style>
+</head>
 <body>
-  <h1>Upload Your Resume</h1>
-  <form method="POST" enctype="multipart/form-data">
-    <input type="file" name="resume" accept=".pdf" required>
-    <input type="submit" value="Analyze">
-  </form>
+  <h1>AI Resume Analyzer</h1>
+  
+  <div class="upload-container">
+    <form method="POST" enctype="multipart/form-data">
+      <input type="file" name="resume" accept=".pdf" required>
+      <input type="submit" value="Analyze Resume">
+    </form>
+  </div>
 
-  {% if keywords|length > 0 %}
-    <h3>Extracted Keywords:</h3>
-    <ul>{% for k in keywords %}<li>{{ k }}</li>{% endfor %}</ul>
-  {% endif %}
+  {% if keywords|length > 0 or refined|length > 0 or feedback or jobs|length > 0 or gap_feedback %}
+  <div class="results-container">
+    {% if keywords|length > 0 %}
+      <h3>Extracted Keywords</h3>
+      <ul class="keyword-list">{% for k in keywords %}<li>{{ k }}</li>{% endfor %}</ul>
+    {% endif %}
 
-  {% if refined|length > 0 %}
-    <h3>GPT‑Filtered Keywords:</h3>
-    <ul>{% for k in refined %}<li>{{ k }}</li>{% endfor %}</ul>
-  {% endif %}
+    {% if refined|length > 0 %}
+      <h3>GPT‑Filtered Keywords</h3>
+      <ul class="keyword-list">{% for k in refined %}<li>{{ k }}</li>{% endfor %}</ul>
+    {% endif %}
 
-  {% if feedback %}
-    <h3>Resume Feedback:</h3>
-    <pre>{{ feedback }}</pre>
-  {% endif %}
+    {% if feedback %}
+      <h3>Resume Feedback</h3>
+      <pre>{{ feedback }}</pre>
+    {% endif %}
 
-  {% if jobs|length > 0 %}
-    <h3>Matching Jobs:</h3>
-    <ul>
-      {% for job in jobs %}
-        <li>
-          <strong>{{ job.title }}</strong> at {{ job.company.name }}<br>
-          <a href="{{ job.url }}" target="_blank">Apply Here</a> |
-          <a href="{{ url_for('cover_letter', job_id=job.id) }}">Create Cover Letter</a>
-        </li>
-      {% endfor %}
-    </ul>
-  {% endif %}
+    {% if jobs|length > 0 %}
+      <h3>Matching Jobs</h3>
+      <ul class="jobs-list">
+        {% for job in jobs %}
+          <li class="job-item">
+            <div class="job-title"><strong>{{ job.title }}</strong></div>
+            <div class="job-company">{{ job.company.name }}</div>
+            <div class="job-links">
+              <a href="{{ job.url }}" target="_blank">Apply Here</a>
+              <a href="{{ url_for('cover_letter', job_id=job.id) }}">Create Cover Letter</a>
+            </div>
+          </li>
+        {% endfor %}
+      </ul>
+    {% endif %}
 
-  {% if gap_feedback %}
-    <h3>Skill‑Gap Analysis:</h3>
-    <pre>{{ gap_feedback }}</pre>
+    {% if gap_feedback %}
+      <h3>Skill‑Gap Analysis</h3>
+      <pre>{{ gap_feedback }}</pre>
+    {% endif %}
+  </div>
   {% endif %}
 </body>
 </html>

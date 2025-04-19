@@ -23,7 +23,7 @@ def index():
 
             # 1. Extract & refine keywords
             keywords = extract_keywords(text)
-            if len(keywords) > 0:
+            if keywords is not None and len(keywords) > 0:
                 refined = refine_keywords_for_job(keywords)
 
                 # 2. Fetch matching jobs
