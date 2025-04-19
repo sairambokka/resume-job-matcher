@@ -1,118 +1,174 @@
-# ResumeMatch
+# ResumeMatch 🚀
 
-A smart application that analyzes your resume, extracts key skills, matches you with relevant job postings, provides personalized feedback, and generates tailored cover letters.
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)  
+[![Python Version](https://img.shields.io/badge/Python-3.8%2B-green.svg)](https://www.python.org/downloads/)  
+[![Flask](https://img.shields.io/badge/Flask-2.0%2B-red.svg)](https://flask.palletsprojects.com/)  
+[![OpenAI](https://img.shields.io/badge/OpenAI-GPT_Integration-lightgrey.svg)](https://openai.com/)
 
-## Demo
+**Elevator Pitch**  
+Job seekers spend hours tweaking their resumes and hunting for openings. ResumeMatch uses AI to instantly analyze and optimize your resume, match you to top roles, and even draft custom cover letters—saving you time and boosting your chances of landing interviews.
+
+---
+
+## 📋 Table of Contents
+
+1. [Demo](#demo)  
+2. [Features](#features)  
+3. [Prerequisites](#prerequisites)  
+4. [Installation](#installation)  
+5. [Environment Variables](#environment-variables)  
+6. [Usage](#usage)  
+7. [Project Structure](#project-structure)  
+8. [Built With](#built-with)  
+9. [Roadmap](#roadmap)  
+10. [Troubleshooting](#troubleshooting)  
+11. [Contributing](#contributing)  
+12. [License](#license)  
+13. [Contact](#contact)  
+
+---
+
+## 🎬 Demo
+
+### Video Demo
+[![Video Demo](https://img.youtube.com/vi/UQOcFqlfs4s/0.jpg)](https://youtu.be/UQOcFqlfs4s?si=vMzaE_9ImK_R0kSb)  
+*Click the image above to watch the full application demo on YouTube*
 
 ### Inspiration
-![Inspiration](assets/Inspiration.png)
-Our inspiration came from Qualcomm's website, where they allow candidates to upload resumes and match them with suitable jobs in their company based on resume content.
+![Our Inspiration](assets/Inspiration.png)  
+_We saw how Qualcomm's portal instantly matches resumes to their roles and thought: let's bring that power to UMBC students and beyond._
 
-### Initial Page
-![Initial Page](assets/Initial_Page.png)
-The landing page where users can upload their resume for analysis.
+_Screenshots:_
 
-### Keywords and Feedback
-![Keywords and Feedback](assets/Keywords_and_Feedback.png)
-This section displays extracted keywords from your resume and provides AI-generated feedback for improvement.
+| Landing Page | Keywords & Feedback |
+|:------------:|:-------------------:|
+| ![Initial Page](assets/Initial_Page.png) | ![Keywords and Feedback](assets/Keywords_and_Feedback.png) |
 
-### Matched Jobs
-![Matched Jobs](assets/Matched_Jobs.png)
-Based on your resume's content, we find and display relevant job opportunities from LinkedIn.
+| Matched Jobs  | Skill Gap Analysis | Cover Letter |
+|:-------------:|:------------------:|:-------------:|
+| ![Matched Jobs](assets/Matched_Jobs.png) | ![Skill Gap Analysis](assets/Skill_Gap_Analysis.png) | ![Cover Letter](assets/Cover_Letter.png) |
 
-### Skill Gap Analysis
-![Skill Gap Analysis](assets/Skill_Gap_Analysis.png)
-An analysis of skills you have versus skills required by the job market, helping you identify areas for growth.
+---
 
-### Cover Letter
-![Cover Letter](assets/Cover_Letter.png)
-Generates tailored cover letters for specific job applications based on your resume and the job description.
+## ✨ Features
 
-## Features
+- **Resume Analysis**: Extract text & keywords from PDF resumes  
+- **AI‑Driven Feedback**: GPT‑powered suggestions on action verbs, metrics, formatting  
+- **Job Matching**: Real LinkedIn job data via RapidAPI  
+- **Skill‑Gap Analysis**: Highlights missing skills and offers learning paths  
+- **Cover Letter Generation**: Tailored intros based on job description  
+- **Match Scoring**: (Coming soon) Rank jobs by relevance  
 
-- **Resume Analysis**: Extracts text and keywords from PDF resumes
-- **Skill Identification**: Uses AI to identify and refine key skills in your resume
-- **Job Matching**: Finds relevant LinkedIn job postings based on your skills
-- **Resume Feedback**: Provides AI-powered feedback on your resume
-- **Skill Gap Analysis**: Identifies missing skills compared to job requirements
-- **Cover Letter Generation**: Creates tailored cover letters for specific job applications
+---
 
-## Tech Stack
+## 🔧 Prerequisites
 
-- **Backend**: Flask (Python)
-- **NLP/AI**: OpenAI GPT for text analysis and generation
-- **Document Processing**: PyMuPDF for PDF extraction
-- **APIs**: LinkedIn job search integration
-- **Frontend**: HTML, CSS, JavaScript
+- Python **3.8+**  
+- A free RapidAPI account with **LinkedIn Jobs API**  
+- An **OpenAI** account & API key  
 
-## Installation
+---
 
-1. Clone the repository:
-   ```
-   git clone https://github.com/yourusername/resume-job-matcher.git
-   cd resume-job-matcher
-   ```
+## 🛠️ Installation
 
-2. Create and activate a virtual environment:
-   ```
-   python -m venv venv
-   # On Windows
-   venv\Scripts\activate
-   # On macOS/Linux
-   source venv/bin/activate
-   ```
+```bash
+# Clone
+git clone https://github.com/sairambokka/resume-job-matcher.git
+cd resume-job-matcher
 
-3. Install dependencies:
-   ```
-   pip install -r requirements.txt
-   ```
+# Setup venv
+python -m venv venv
+source venv/bin/activate    # macOS/Linux
+venv\Scripts\activate       # Windows
 
-4. Create a `.env` file with your API keys:
-   ```
-   OPENAI_API_KEY=your_openai_api_key
-   LINKEDIN_API_KEY=your_linkedin_api_key
-   ```
+# Install
+pip install -r requirements.txt
+```
 
-## Usage
+## 🔑 Environment Variables
 
-1. Start the application:
-   ```
+Create a `.env` file in the project root:
+
+```ini
+OPENAI_API_KEY=your_openai_api_key
+RAPIDAPI_KEY=your_rapidapi_key
+```
+
+## 🚀 Usage
+
+1. Start the server:
+   ```bash
    python app.py
    ```
 
-2. Open your browser and navigate to `http://localhost:5000`
+2. Visit `http://localhost:5000`
 
-3. Upload your resume (PDF format)
+3. Upload your PDF resume
 
-4. View your extracted skills, matching jobs, and personalized feedback
+4. Explore:
+   - Extracted skills
+   - AI feedback
+   - Matched jobs & cover letters
+   - Skill‑gap analysis
 
-5. Generate cover letters for specific job applications
+## 📂 Project Structure
 
-## Project Structure
+```
+.
+├── app.py                # Flask routes
+├── resume_utils.py       # PDF parsing & keyword extraction
+├── linkedin_api.py       # LinkedIn RapidAPI integration
+├── gpt_utils.py          # OpenAI GPT helpers
+├── templates/            # HTML views
+│   ├── index.html
+│   └── cover_letter.html
+├── static/               # CSS & JS
+├── assets/               # Screenshots & demo video
+├── requirements.txt
+├── README.md
+└── LICENSE
+```
 
-- `app.py`: Main Flask application
-- `resume_utils.py`: Resume parsing and keyword extraction
-- `linkedin_api.py`: LinkedIn job search integration
-- `gpt_utils.py`: OpenAI GPT integration for text analysis and generation
-- `templates/`: HTML templates for the web interface
-- `static/`: CSS, JavaScript, and static assets
+## 🔨 Built With
 
-## Contributing
+- [Flask](https://flask.palletsprojects.com/) - Web framework
+- [OpenAI GPT](https://openai.com/) - Natural language processing
+- [PyMuPDF](https://pymupdf.readthedocs.io/) - PDF parsing
+- [scikit-learn](https://scikit-learn.org/) - Machine learning utilities
+- [RapidAPI](https://rapidapi.com/) - LinkedIn job data
 
-Contributions are welcome! Please feel free to submit a Pull Request.
+## 🛣️ Roadmap
 
-1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add some amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
+- [ ] Match scoring & ranking
+- [ ] User authentication & profile saving
+- [ ] Export improved resume (PDF)
+- [ ] Automated tests & CI pipeline
+- [ ] Docker containerization
 
-## License
+## ❓ Troubleshooting
 
-Distributed under the MIT License. See `LICENSE` for more information.
+**Issue**: PDF parsing fails
+**Solution**: Ensure your PDF is not password-protected and is in a readable format
 
-## Acknowledgements
+**Issue**: No jobs appear after upload
+**Solution**: Check your RapidAPI key and connection; try more general keywords
 
-- [OpenAI](https://openai.com/) for GPT API
-- [LinkedIn](https://www.linkedin.com/) for job data
-- All contributors and testers
+**Issue**: API rate limits
+**Solution**: Implement caching or reduce the number of requests
+
+## 🤝 Contributing
+
+1. Fork the repo
+2. Create a branch: `git checkout -b feature/name`
+3. Commit: `git commit -m "Add feature"`
+4. Push: `git push origin feature/name`
+5. Open a PR — we'll review within 48 hours!
+
+## 📜 License
+
+Distributed under the MIT License. See [LICENSE](LICENSE) for details.
+
+## 📬 Contact
+
+Sairam Bokka – sbokka1@umbc.edu  
+Project Link: [https://github.com/sairambokka/resume-job-matcher](https://github.com/sairambokka/resume-job-matcher)
