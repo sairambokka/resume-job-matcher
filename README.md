@@ -2,6 +2,32 @@
 
 A smart application that analyzes your resume, extracts key skills, matches you with relevant job postings, provides personalized feedback, and generates tailored cover letters.
 
+## Demo
+
+### Inspiration
+![Inspiration](assets/Inspiration.png)
+Our inspiration came from Qualcomm's website, where they allow candidates to upload resumes and match them with suitable jobs in their company based on resume content.
+
+### Initial Page
+![Initial Page](assets/Initial_Page.png)
+The landing page where users can upload their resume for analysis.
+
+### Keywords and Feedback
+![Keywords and Feedback](assets/Keywords_and_Feedback.png)
+This section displays extracted keywords from your resume and provides AI-generated feedback for improvement.
+
+### Matched Jobs
+![Matched Jobs](assets/Matched_Jobs.png)
+Based on your resume's content, we find and display relevant job opportunities from LinkedIn.
+
+### Skill Gap Analysis
+![Skill Gap Analysis](assets/Skill_Gap_Analysis.png)
+An analysis of skills you have versus skills required by the job market, helping you identify areas for growth.
+
+### Cover Letter
+![Cover Letter](assets/Cover_Letter.png)
+Generates tailored cover letters for specific job applications based on your resume and the job description.
+
 ## Features
 
 - **Resume Analysis**: Extracts text and keywords from PDF resumes
