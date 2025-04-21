@@ -1,7 +1,7 @@
 from flask import Flask, request, session, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from utils.resume_utils import extract_text_from_pdf, extract_keywords
-from linkedin_api import get_linkedin_jobs, get_job_details
+from utils.linkedin_api import get_linkedin_jobs, get_job_details
 from utils.gpt_utils import (
     refine_keywords_for_job,
     generate_cover_letter,

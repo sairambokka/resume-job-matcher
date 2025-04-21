@@ -46,6 +46,14 @@ export default function CoverLetter() {
         {match}% Match
       </p>
 
+      {/* Job Description */}
+      <div className="bg-white rounded-2xl shadow p-6 mb-6">
+        <h3 className="text-xl font-semibold text-indigo-700 mb-3">Job Description</h3>
+        <div className="text-gray-800 whitespace-pre-wrap">
+          {job.description}
+        </div>
+      </div>
+
       {/* Generated Cover Letter */}
       <div className="bg-white rounded-2xl shadow p-6">
         <pre className="whitespace-pre-wrap text-gray-800">{letter}</pre>
