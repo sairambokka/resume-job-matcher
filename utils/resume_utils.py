@@ -11,4 +11,4 @@ def extract_text_from_pdf(file_stream):
 def extract_keywords(text, max_keywords=15):
     vectorizer = CountVectorizer(max_features=max_keywords, stop_words="english")
     X = vectorizer.fit_transform([text])
-    return vectorizer.get_feature_names_out()
+    return vectorizer.get_feature_names_out().tolist

@@ -4,6 +4,7 @@
 [![Python Version](https://img.shields.io/badge/Python-3.8%2B-green.svg)](https://www.python.org/downloads/)  
 [![Flask](https://img.shields.io/badge/Flask-2.0%2B-red.svg)](https://flask.palletsprojects.com/)  
 [![OpenAI](https://img.shields.io/badge/OpenAI-GPT_Integration-lightgrey.svg)](https://openai.com/)
+[![React](https://img.shields.io/badge/React-19.1.0-blue.svg)](https://reactjs.org/)
 
 **Elevator Pitch**  
 Job seekers spend hours tweaking their resumes and hunting for openings. ResumeMatch uses AI to instantly analyze and optimize your resume, match you to top roles, and even draft custom cover letters—saving you time and boosting your chances of landing interviews.
@@ -28,42 +29,33 @@ Job seekers spend hours tweaking their resumes and hunting for openings. ResumeM
 
 ---
 
-## 🎬 Demo
-
-### Video Demo
-[![Video Demo](https://img.youtube.com/vi/UQOcFqlfs4s/0.jpg)](https://youtu.be/UQOcFqlfs4s?si=vMzaE_9ImK_R0kSb)  
-*Click the image above to watch the full application demo on YouTube*
-
 ### Inspiration
 ![Our Inspiration](assets/Inspiration.png)  
 _We saw how Qualcomm's portal instantly matches resumes to their roles and thought: let's bring that power to UMBC students and beyond._
 
 _Screenshots:_
 
-| Landing Page | Keywords & Feedback |
-|:------------:|:-------------------:|
-| ![Initial Page](assets/Initial_Page.png) | ![Keywords and Feedback](assets/Keywords_and_Feedback.png) |
+| Landing Page |
+|:------------:|
+| ![Initial Page](assets/Initial_Page.png) |
 
-| Matched Jobs  | Skill Gap Analysis | Cover Letter |
-|:-------------:|:------------------:|:-------------:|
-| ![Matched Jobs](assets/Matched_Jobs.png) | ![Skill Gap Analysis](assets/Skill_Gap_Analysis.png) | ![Cover Letter](assets/Cover_Letter.png) |
+| Matched Jobs  | Cover Letter |
+|:-------------:|:------------:|
+| ![Matched Jobs](assets/Matched_Jobs.png) | ![Cover Letter](assets/Cover_Letter.png) |
 
 ---
 
 ## ✨ Features
-
-- **Resume Analysis**: Extract text & keywords from PDF resumes  
-- **AI‑Driven Feedback**: GPT‑powered suggestions on action verbs, metrics, formatting  
-- **Job Matching**: Real LinkedIn job data via RapidAPI  
-- **Skill‑Gap Analysis**: Highlights missing skills and offers learning paths  
-- **Cover Letter Generation**: Tailored intros based on job description  
-- **Match Scoring**: (Coming soon) Rank jobs by relevance  
-
+  
+- **Job Matching**: Real LinkedIn job data via RapidAPI
+- **Match Scoring**: Percentage match between your resume and job descriptions
+- **Cover Letter Generation**: Tailored cover letters based on your resume and job description
 ---
 
 ## 🔧 Prerequisites
 
 - Python **3.8+**  
+- Node.js **16+** (for React frontend)
 - A free RapidAPI account with **LinkedIn Jobs API**  
 - An **OpenAI** account & API key  
 
@@ -71,6 +63,7 @@ _Screenshots:_
 
 ## 🛠️ Installation
 
+### Backend
 ```bash
 # Clone
 git clone https://github.com/sairambokka/resume-job-matcher.git
@@ -85,77 +78,128 @@ venv\Scripts\activate       # Windows
 pip install -r requirements.txt
 ```
 
+### Frontend
+```bash
+# Navigate to frontend directory
+cd frontend
+
+# Install dependencies
+npm install
+
+# Build for production
+npm run build
+```
+
 ## 🔑 Environment Variables
 
 Create a `.env` file in the project root:
 
 ```ini
 OPENAI_API_KEY=your_openai_api_key
-RAPIDAPI_KEY=your_rapidapi_key
+RAPID_API_KEY=your_rapidapi_key
 ```
 
 ## 🚀 Usage
 
-1. Start the server:
+### Development Mode
+1. Start the backend server:
    ```bash
    python app.py
    ```
 
-2. Visit `http://localhost:5000`
+2. In a separate terminal, start the React frontend:
+   ```bash
+   cd frontend
+   npm start
+   ```
 
-3. Upload your PDF resume
+3. Visit `http://localhost:3000`
 
-4. Explore:
+### Production Mode
+1. Build the frontend:
+   ```bash
+   cd frontend
+   npm run build
+   ```
+
+2. Start the server:
+   ```bash
+   python app.py
+   ```
+
+3. Visit `http://localhost:5000`
+
+4. Upload your PDF resume
+
+5. Explore:
    - Extracted skills
-   - AI feedback
    - Matched jobs & cover letters
-   - Skill‑gap analysis
+   - Match scores
 
 ## 📂 Project Structure
 
 ```
 .
-├── app.py                # Flask routes
+├── app.py                # Flask API routes & SQLite database integration
 ├── resume_utils.py       # PDF parsing & keyword extraction
 ├── linkedin_api.py       # LinkedIn RapidAPI integration
-├── gpt_utils.py          # OpenAI GPT helpers
+├── gpt_utils.py          # OpenAI GPT interactions
 ├── templates/            # HTML views
-│   ├── index.html
-│   └── cover_letter.html
-├── static/               # CSS & JS
-├── assets/               # Screenshots & demo video
-├── requirements.txt
+├── static/               # CSS & JS for server-rendered pages
+├── frontend/             # React frontend application
+│   ├── src/              # React components and logic
+│   ├── public/           # Static assets
+│   └── package.json      # Frontend dependencies
+├── assets/               # Screenshots & demo materials
+├── requirements.txt      # Python dependencies
 ├── README.md
-└── LICENSE
+└── .env                  # Environment variables (not included in repository)
 ```
 
 ## 🔨 Built With
 
-- [Flask](https://flask.palletsprojects.com/) - Web framework
-- [OpenAI GPT](https://openai.com/) - Natural language processing
-- [PyMuPDF](https://pymupdf.readthedocs.io/) - PDF parsing
-- [scikit-learn](https://scikit-learn.org/) - Machine learning utilities
-- [RapidAPI](https://rapidapi.com/) - LinkedIn job data
+- **Backend**:
+  - [Flask](https://flask.palletsprojects.com/) - Web framework
+  - [Flask-SQLAlchemy](https://flask-sqlalchemy.palletsprojects.com/) - Database ORM
+  - [OpenAI GPT](https://openai.com/) - Natural language processing
+  - [PyMuPDF](https://pymupdf.readthedocs.io/) - PDF parsing
+  - [scikit-learn](https://scikit-learn.org/) - Keyword extraction
+
+- **Frontend**:
+  - [React](https://reactjs.org/) - UI framework
+  - [React Router](https://reactrouter.com/) - Navigation
+  - [Tailwind CSS](https://tailwindcss.com/) - Styling
+
+- **Data**:
+  - [RapidAPI](https://rapidapi.com/) - LinkedIn job data
+  - [SQLite](https://www.sqlite.org/) - Local database
 
 ## 🛣️ Roadmap
 
-- [ ] Match scoring & ranking
+- [x] Resume parsing & keyword extraction
+- [x] Job search via LinkedIn API
+- [x] Cover letter generation
+- [x] Match scoring between resume and jobs
+- [x] Modern React frontend
 - [ ] User authentication & profile saving
 - [ ] Export improved resume (PDF)
 - [ ] Automated tests & CI pipeline
 - [ ] Docker containerization
+- [ ] Cloud deployment
 
 ## 🔮 Future Work
 
-This application can be improved in a lot of different ways:
+This application can be improved in several ways:
 
-1. **LinkedIn API Integration**: This app currently uses a third-party API for fetching LinkedIn Jobs. This can be replaced by the official LinkedIn API when available.
+1. **LinkedIn API Integration**: Replace the third-party API with the official LinkedIn API when available.
 
-2. **Match Percentage**: Each job could have a percentage-based match besides the job link to show how well matched each job is with the Resume. Due to API constraints, this feature is not yet implemented.
+2. **Enhanced Job Matching Algorithm**: Implement more sophisticated matching algorithms beyond GPT-based scoring.
 
-3. **Enhanced Skill Gap Analysis**: The skill gap analysis can be more in-depth based on each job description, providing more personalized learning recommendations.
+3. **User Authentication**: Add account creation and resume storage functionality.
 
-4. **UI Improvements**: Enhance the user interface for better user experience and accessibility.
+4. **Implement Skill Gap Analysis**: In-depth skill gap analysis with specific learning resources.
+
+5. **Mobile App**: Develop companion mobile applications for iOS and Android.
 
 ## ❓ Troubleshooting
 
@@ -167,6 +211,9 @@ This application can be improved in a lot of different ways:
 
 **Issue**: API rate limits
 **Solution**: Implement caching or reduce the number of requests
+
+**Issue**: Frontend not connecting to backend
+**Solution**: Ensure the proxy setting in package.json is correct and both servers are running
 
 ## 🤝 Contributing
 
